@@ -3,14 +3,19 @@ import { actionTypes } from "../contants/actionTypes";
 
 const initState = {
   popular: [],
-  newGames: [],
   upcoming: [],
+  newGames: [],
 };
 
-const gamesReducer = (state = initState, action = gamesActions) => {
+const gamesReducer = (state = initState, action) => {
   switch (action.type) {
     case actionTypes.FETCH_GAMES:
-      return { ...state };
+      return {
+        ...state,
+        popular: action.payload.popularGames,
+        upcoming: action.payload.upcomingGames,
+        newGames: action.payload.newGames,
+      };
     default:
       return { ...state };
   }
