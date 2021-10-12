@@ -1,4 +1,3 @@
-import { gamesActions } from "../actions/gamesActions";
 import { actionTypes } from "../contants/actionTypes";
 
 const initState = {

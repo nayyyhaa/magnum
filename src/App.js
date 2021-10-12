@@ -1,19 +1,12 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { gamesActions } from "./redux/actions/gamesActions";
+import React from "react";
+//Pages and components
+import Home from "./pages/Home";
 
 function App() {
-  let product = useSelector((state) => state.games);
-  console.log(product);
-  let dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(gamesActions());
-  }, []);
-
   return (
     <div className="App">
-      <h1>hello</h1>
+      <h1>magnum</h1>
+      <Home />
     </div>
   );
 }
