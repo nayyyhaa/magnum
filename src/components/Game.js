@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 //Styles and animations
 import styled from "styled-components";
 import { motion } from "framer-motion";
+//utils
+import smallImages from "../toolkit/scripts/utils";
 
 const Game = ({ id, name, released, image }) => {
   let dispatch = useDispatch();
@@ -16,7 +18,7 @@ const Game = ({ id, name, released, image }) => {
   return (
     <StyledGame onClick={loadGameDetailsHandler}>
       <Link to={`/game/${id}`}>
-        <img src={image} alt={name} />
+        <img src={smallImages(image, 640)} alt={name} />
         <h3>{name}</h3>
         <p>{released}</p>
       </Link>

@@ -4,6 +4,8 @@ import { useHistory } from "react-router-dom";
 //Styles and animations
 import styled from "styled-components";
 import { motion } from "framer-motion";
+//utils
+import smallImages from "../toolkit/scripts/utils";
 
 const GameDetail = () => {
   let history = useHistory();
@@ -31,20 +33,27 @@ const GameDetail = () => {
                 <h3>Platforms</h3>
                 <StyledPlatforms>
                   {details.platforms?.map((data) => (
-                    <h4>{data.platform.name}</h4>
+                    <h4 key={data.platform.name}>{data.platform.name}</h4>
                   ))}
                 </StyledPlatforms>
               </StyledInfo>
             </StyledStats>
             <StyledMedia>
-              <img src={details.background_image} alt={details.name} />
+              <img
+                src={smallImages(details.background_image, 1280)}
+                alt={details.name}
+              />
             </StyledMedia>
             <StyledDescription>
               <p>{details.description_raw}</p>
             </StyledDescription>
             <div className="gallery">
               {screenshots.results?.map((screen) => (
-                <img src={screen.image} key={screen.id} alt="screenshot" />
+                <img
+                  src={smallImages(screen.image, 1280)}
+                  key={screen.id}
+                  alt="screenshot"
+                />
               ))}
             </div>
           </StyledDetails>
