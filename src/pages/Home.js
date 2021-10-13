@@ -8,19 +8,73 @@ import { motion } from "framer-motion";
 import Game from "../components/Game";
 
 const Home = () => {
-  let games = useSelector((state) => state.games);
-  console.log(games);
+  let { popular, upcoming, newGames } = useSelector((state) => state.games);
+  console.log(popular, upcoming, newGames);
   let dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(gamesActions());
-  }, []);
+  }, [dispatch]);
 
   return (
-    <div>
-      <h1>home</h1>
-    </div>
+    <StyledGamesList>
+      <h2>Upcoming Games</h2>
+      <StyledGames>
+        {upcoming.map((game) => {
+          return (
+            <Game
+              key={game.id}
+              id={game.id}
+              name={game.name}
+              released={game.released}
+              image={game.background_image}
+            />
+          );
+        })}
+      </StyledGames>
+      <h2>Popular Games</h2>
+      <StyledGames>
+        {popular.map((game) => {
+          return (
+            <Game
+              key={game.id}
+              id={game.id}
+              name={game.name}
+              released={game.released}
+              image={game.background_image}
+            />
+          );
+        })}
+      </StyledGames>
+      <h2>New Games</h2>
+      <StyledGames>
+        {newGames.map((game) => {
+          return (
+            <Game
+              key={game.id}
+              id={game.id}
+              name={game.name}
+              released={game.released}
+              image={game.background_image}
+            />
+          );
+        })}
+      </StyledGames>
+    </StyledGamesList>
   );
 };
+
+const StyledGamesList = styled(motion.div)`
+
+  h2 {
+    padding: 3rem 0;
+  }
+`;
+const StyledGames = styled(motion.div)`
+  min-height: 80vh;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-gap: 2rem;
+`;
 
 export default Home;
