@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 //components
 import Game from "../components/Game";
+import GameDetail from "../components/GameDetail";
 
 const Home = () => {
   let { popular, upcoming, newGames } = useSelector((state) => state.games);
@@ -19,6 +20,7 @@ const Home = () => {
   return (
     <StyledGamesList>
       <h2>Upcoming Games</h2>
+      <GameDetail />
       <StyledGames>
         {upcoming.map((game) => {
           return (
@@ -65,7 +67,6 @@ const Home = () => {
 };
 
 const StyledGamesList = styled(motion.div)`
-
   h2 {
     padding: 3rem 0;
   }

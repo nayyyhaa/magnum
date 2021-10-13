@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { detailsAction } from "../redux/actions/detailsAction";
 //Styles and animations
 import styled from "styled-components";
