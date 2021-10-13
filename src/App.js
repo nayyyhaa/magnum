@@ -16,7 +16,7 @@ function App() {
           <h1 id="logo">magnum.</h1>
         </Link>
       </Route>
-      <Route path="/">
+      <Route path={["/game/:id", "/"]}>
         <Home />
       </Route>
     </div>

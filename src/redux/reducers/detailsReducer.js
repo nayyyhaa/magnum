@@ -3,6 +3,7 @@ import { actionTypes } from "../contants/actionTypes";
 let initState = {
   details: {},
   screenshots: {},
+  isLoading: true,
 };
 
 const detailsReducer = (state = initState, action) => {
@@ -12,7 +13,10 @@ const detailsReducer = (state = initState, action) => {
         ...state,
         details: action.payload.details,
         screenshots: action.payload.screenshots,
+        isLoading: false,
       };
+    case actionTypes.LOADING_DETAIL:
+      return { ...state, isLoading: true };
     default:
       return { ...state };
   }

@@ -29,6 +29,10 @@ const GlobalStyles = createGlobalStyle`
         text-decoration: none;
     }
 
+    img {
+        display: block;
+    }
+
     #logo {
         font-family: 'Abril Fatface', cursive;
         cursor: pointer;

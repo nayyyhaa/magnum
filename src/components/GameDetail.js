@@ -1,51 +1,63 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 //Styles and animations
 import styled from "styled-components";
 import { motion } from "framer-motion";
 
 const GameDetail = () => {
-  const { details, screenshots } = useSelector((state) => state.details);
-  console.log(details, screenshots);
+  let history = useHistory();
+  const { details, screenshots, isLoading } = useSelector(
+    (state) => state.details
+  );
+
+  const exitCardHandler = (e) => {
+    if (e.target.classList.contains("card-shadow"))
+      document.body.style.overflow = "auto";
+    history.push("/");
+  };
 
   return (
-    <StyledCard>
-      {
-        <StyledDetails>
-          <StyledStats>
-            <div className="rating">
-              <h3>{details.name}</h3>
-              <p>{details.rating}</p>
+    <>
+      {!isLoading && (
+        <StyledCard className="card-shadow" onClick={exitCardHandler}>
+          <StyledDetails>
+            <StyledStats>
+              <div className="rating">
+                <h3>{details.name}</h3>
+                <p>{details.rating}</p>
+              </div>
+              <StyledInfo>
+                <h3>Platforms</h3>
+                <StyledPlatforms>
+                  {details.platforms?.map((data) => (
+                    <h4>{data.platform.name}</h4>
+                  ))}
+                </StyledPlatforms>
+              </StyledInfo>
+            </StyledStats>
+            <StyledMedia>
+              <img src={details.background_image} alt={details.name} />
+            </StyledMedia>
+            <StyledDescription>
+              <p>{details.description_raw}</p>
+            </StyledDescription>
+            <div className="gallery">
+              {screenshots.results?.map((screen) => (
+                <img src={screen.image} key={screen.id} alt="screenshot" />
+              ))}
             </div>
-            <StyledInfo>
-              <h3>Platforms</h3>
-              <StyledPlatforms>
-                {details.platforms.map((data) => (
-                  <h4>{data.platform.name}</h4>
-                ))}
-              </StyledPlatforms>
-            </StyledInfo>
-          </StyledStats>
-          <StyledMedia>
-            <img src={details.background_image} alt={details.name} />
-          </StyledMedia>
-          <StyledDescription>
-            <p>{details.description_raw}</p>
-          </StyledDescription>
-          <div className="gallery">
-            {screenshots.results.map((screen) => (
-              <img src={screen.image} key={screen.id} alt="screenshot" />
-            ))}
-          </div>
-        </StyledDetails>
-      }
-    </StyledCard>
+          </StyledDetails>
+        </StyledCard>
+      )}
+    </>
   );
 };
 
 const StyledCard = styled(motion.div)`
   min-height: 100vh;
   width: 100%;
+  padding: 2rem;
   overflow-y: scroll;
   background: rgba(0, 0, 0, 0.5);
   position: fixed;
@@ -71,12 +83,12 @@ const StyledCard = styled(motion.div)`
 `;
 
 const StyledDetails = styled(motion.div)`
-    width: 80%;
-    border-radius: 1rem;
-    padding: 2rem;
-    background: white;
-    position: absolute;
-    left: 10%;
+  width: 80%;
+  border-radius: 1rem;
+  padding: 2rem;
+  background: white;
+  position: absolute;
+  left: 10%;
 `;
 
 const StyledStats = styled(motion.div)`
