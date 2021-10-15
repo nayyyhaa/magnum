@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 //animations
 import { motion } from "framer-motion";
+import { fadeIn } from "../toolkit/scripts/animations.js";
 //redux
 
 import { useDispatch } from "react-redux";
@@ -16,7 +17,8 @@ const Nav = () => {
   let [searchText, setSearchText] = useState("");
   let dispatch = useDispatch();
 
-  const searchGamesHandler = () => {
+  const searchGamesHandler = (e) => {
+    e.preventDefault();
     dispatch(searchGamesAction(searchText));
     setSearchText("");
   };
@@ -26,21 +28,21 @@ const Nav = () => {
   };
 
   return (
-    <StyledNav>
+    <StyledNav variants={fadeIn} initial="hidden" animate="view">
       <StyledLogo>
         <img src={logo} alt="logo" onClick={clearSearched} />
         <h1 id="logo" onClick={clearSearched}>
           magnum.
         </h1>
       </StyledLogo>
-      <div className="search">
+      <form className="search">
         <input
           type="text"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
         />
         <button onClick={searchGamesHandler}>Search</button>
-      </div>
+      </form>
     </StyledNav>
   );
 };
@@ -56,6 +58,11 @@ const StyledNav = styled(motion.nav)`
       font-size: 1rem;
       padding: 0.5rem;
     }
+  }
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    text-align: center;
   }
 `;
 

@@ -148,6 +148,9 @@ const StyledDetails = styled(motion.div)`
   position: absolute;
   left: 10%;
   z-index: 10;
+  @media screen and (max-width: 480px) {
+    padding: 1rem;
+  }
 `;
 
 const StyledStats = styled(motion.div)`
@@ -158,6 +161,14 @@ const StyledStats = styled(motion.div)`
     width: 2rem;
     height: 2rem;
     display: inline;
+    @media screen and (max-width: 480px) {
+      width: 1rem;
+      height: 1rem;
+    }
+  }
+  @media screen and (max-width: 480px) {
+    text-align: center;
+    flex-direction: column;
   }
 `;
 const StyledInfo = styled(motion.div)`
@@ -168,6 +179,9 @@ const StyledPlatforms = styled(motion.div)`
   justify-content: space-evenly;
   img {
     margin-left: 3rem;
+    @media screen and (max-width: 480px) {
+      margin-left: 0.5rem;
+    }
   }
 `;
 

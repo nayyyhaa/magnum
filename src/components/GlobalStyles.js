@@ -76,6 +76,10 @@ const GlobalStyles = createGlobalStyle`
         font-size: 1.2rem;
         line-height: 200%;
         color: #696969;
+        
+        @media screen and (max-width: 480px) {
+        font-size: 0.9rem;
+        }
     }
 `;
 
