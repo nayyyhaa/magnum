@@ -6,6 +6,16 @@ import styled from "styled-components";
 import { motion } from "framer-motion";
 //utils
 import smallImages from "../toolkit/scripts/utils";
+//images
+import playstation from "../toolkit/assets/img/playstation.svg";
+import steam from "../toolkit/assets/img/steam.svg";
+import xbox from "../toolkit/assets/img/xbox.svg";
+import nintendo from "../toolkit/assets/img/nintendo.svg";
+import apple from "../toolkit/assets/img/apple.svg";
+import gamepad from "../toolkit/assets/img/gamepad.svg";
+//Star Images
+import starEmpty from "../toolkit/assets/img/star-empty.png";
+import starFull from "../toolkit/assets/img/star-full.png";
 
 const GameDetail = ({ pathId }) => {
   let history = useHistory();
@@ -14,9 +24,39 @@ const GameDetail = ({ pathId }) => {
   );
 
   const exitCardHandler = (e) => {
-    if (e.target.classList.contains("card-shadow"))
+    if (e.target.classList.contains("card-shadow")) {
       document.body.style.overflow = "auto";
-    history.push("/");
+      history.push("/");
+    }
+  };
+
+  //platform images
+  const getPlatform = (platform) => {
+    switch (platform) {
+      case "PlayStation 4":
+        return playstation;
+      case "Xbox One":
+        return xbox;
+      case "PC":
+        return steam;
+      case "Nintendo Switch":
+        return nintendo;
+      case "iOS":
+        return apple;
+      default:
+        return gamepad;
+    }
+  };
+
+  //star rating
+  const getStarRating = (rating) => {
+    let stars = [];
+    rating = Math.floor(rating);
+    for (let i = 0; i < 5; i++) {
+      if (rating > i) stars.push(<img alt="star" key={i} src={starFull}></img>);
+      else stars.push(<img alt="star" key={i} src={starEmpty}></img>);
+    }
+    return stars;
   };
 
   return (
@@ -30,12 +70,18 @@ const GameDetail = ({ pathId }) => {
                   {details.name}
                 </motion.h3>
                 <p>{details.rating}</p>
+                {getStarRating(details.rating)}
               </div>
               <StyledInfo>
                 <h3>Platforms</h3>
                 <StyledPlatforms>
                   {details.platforms?.map((data) => (
-                    <h4 key={data.platform.name}>{data.platform.name}</h4>
+                    <img
+                      src={getPlatform(data.platform.name)}
+                      alt={data.platform.name}
+                      key={data.platform.name}
+                      title={data.platform.name}
+                    />
                   ))}
                 </StyledPlatforms>
               </StyledInfo>
@@ -69,7 +115,7 @@ const GameDetail = ({ pathId }) => {
 const StyledCard = styled(motion.div)`
   min-height: 100vh;
   width: 100%;
-  padding: 2rem;
+  padding: 0 2rem;
   overflow-y: scroll;
   background: rgba(0, 0, 0, 0.5);
   position: fixed;
@@ -101,6 +147,7 @@ const StyledDetails = styled(motion.div)`
   background: white;
   position: absolute;
   left: 10%;
+  z-index: 10;
 `;
 
 const StyledStats = styled(motion.div)`
