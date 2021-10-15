@@ -1,10 +1,10 @@
 const smallImages = (imagePath, size) => {
-  return imagePath.match(/media\/screenshots/)
-    ? imagePath.replace(
+  return imagePath?.match(/media\/screenshots/)
+    ? imagePath?.replace(
         "media/screenshots",
         `media/resize/${size}/-/screenshots`
       )
-    : imagePath.replace("media/games", `media/resize/${size}/-/games`);
+    : imagePath?.replace("media/games", `media/resize/${size}/-/games`);
 };
 
 export default smallImages;
