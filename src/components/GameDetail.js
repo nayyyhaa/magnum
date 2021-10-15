@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 //utils
 import smallImages from "../toolkit/scripts/utils";
 
-const GameDetail = () => {
+const GameDetail = ({ pathId }) => {
   let history = useHistory();
   const { details, screenshots, isLoading } = useSelector(
     (state) => state.details
@@ -23,10 +23,12 @@ const GameDetail = () => {
     <>
       {!isLoading && (
         <StyledCard className="card-shadow" onClick={exitCardHandler}>
-          <StyledDetails>
+          <StyledDetails layoutId={pathId}>
             <StyledStats>
               <div className="rating">
-                <h3>{details.name}</h3>
+                <motion.h3 layoutId={`title ${pathId.toString()}`}>
+                  {details.name}
+                </motion.h3>
                 <p>{details.rating}</p>
               </div>
               <StyledInfo>
@@ -39,8 +41,9 @@ const GameDetail = () => {
               </StyledInfo>
             </StyledStats>
             <StyledMedia>
-              <img
-                src={smallImages(details.background_image, 1280)}
+              <motion.img
+                layoutId={`img ${pathId.toString()}`}
+                src={smallImages(details.background_image, 640)}
                 alt={details.name}
               />
             </StyledMedia>
@@ -50,7 +53,7 @@ const GameDetail = () => {
             <div className="gallery">
               {screenshots.results?.map((screen) => (
                 <img
-                  src={smallImages(screen.image, 1280)}
+                  src={smallImages(screen.image, 640)}
                   key={screen.id}
                   alt="screenshot"
                 />

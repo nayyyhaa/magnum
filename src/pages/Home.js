@@ -4,7 +4,7 @@ import { gamesActions } from "../redux/actions/gamesActions";
 import { useLocation } from "react-router-dom";
 //Styles and animations
 import styled from "styled-components";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
 //components
 import Game from "../components/Game";
 import GameDetail from "../components/GameDetail";
@@ -13,7 +13,6 @@ const Home = () => {
   let { popular, upcoming, newGames } = useSelector((state) => state.games);
   let { pathname } = useLocation();
   let pathId = pathname.split("/")[2];
-  console.log(popular, upcoming, newGames);
   let dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,49 +21,53 @@ const Home = () => {
 
   return (
     <StyledGamesList>
-      <h2>Upcoming Games</h2>
-      {pathId && <GameDetail />}
-      <StyledGames>
-        {upcoming.map((game) => {
-          return (
-            <Game
-              key={game.id}
-              id={game.id}
-              name={game.name}
-              released={game.released}
-              image={game.background_image}
-            />
-          );
-        })}
-      </StyledGames>
-      <h2>Popular Games</h2>
-      <StyledGames>
-        {popular.map((game) => {
-          return (
-            <Game
-              key={game.id}
-              id={game.id}
-              name={game.name}
-              released={game.released}
-              image={game.background_image}
-            />
-          );
-        })}
-      </StyledGames>
-      <h2>New Games</h2>
-      <StyledGames>
-        {newGames.map((game) => {
-          return (
-            <Game
-              key={game.id}
-              id={game.id}
-              name={game.name}
-              released={game.released}
-              image={game.background_image}
-            />
-          );
-        })}
-      </StyledGames>
+      <AnimateSharedLayout type="crossfade">
+        <h2>Upcoming Games</h2>
+        <AnimatePresence>
+          {pathId && <GameDetail pathId={pathId} />}
+        </AnimatePresence>
+        <StyledGames>
+          {upcoming.map((game) => {
+            return (
+              <Game
+                key={game.id}
+                id={game.id}
+                name={game.name}
+                released={game.released}
+                image={game.background_image}
+              />
+            );
+          })}
+        </StyledGames>
+        <h2>Popular Games</h2>
+        <StyledGames>
+          {popular.map((game) => {
+            return (
+              <Game
+                key={game.id}
+                id={game.id}
+                name={game.name}
+                released={game.released}
+                image={game.background_image}
+              />
+            );
+          })}
+        </StyledGames>
+        <h2>New Games</h2>
+        <StyledGames>
+          {newGames.map((game) => {
+            return (
+              <Game
+                key={game.id}
+                id={game.id}
+                name={game.name}
+                released={game.released}
+                image={game.background_image}
+              />
+            );
+          })}
+        </StyledGames>
+      </AnimateSharedLayout>
     </StyledGamesList>
   );
 };
